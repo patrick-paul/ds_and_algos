@@ -9,19 +9,19 @@ var mazeString = (0, node_fs_1.readFileSync)("./mazeFolder/maze5.txt", {
 // Make a matrix 2D plane
 var mazeData = makeMatrix(mazeString);
 // solve the maze
-console.log(solveMaze(mazeData) ? "Maze Has Atleast 1 Solution!" : "Maze has NO Solution!");
+console.log(solveMaze(mazeData) ? "Maze Has At least 1 Solution!" : "Maze has NO Solution!");
 /// Operational Functions
 // function to create a matrix 2D plane
 function makeMatrix(arry) {
     var supArry = [];
-    var subArary = [];
+    var subArray = [];
     function pushToSupArryAndClearSubArry() {
-        supArry.push(subArary);
-        subArary = [];
+        supArry.push(subArray);
+        subArray = [];
         return;
     }
     for (var x = 0; x < arry.length; x++) {
-        // get the curent characcter
+        // get the current character
         var char = arry[x];
         if (char === "\r") {
             if (arry[x + 1] === "\n") {
@@ -35,16 +35,16 @@ function makeMatrix(arry) {
             }
         }
         else if (char === "\n") {
-            // linix
+            // linux
             pushToSupArryAndClearSubArry();
         }
         else {
-            subArary.push(arry[x]);
+            subArray.push(arry[x]);
         }
     }
     // check the last row and push it
-    if (subArary.length != 0)
-        supArry.push(subArary);
+    if (subArray.length != 0)
+        supArry.push(subArray);
     return supArry;
 }
 // collect possible moves
@@ -67,7 +67,7 @@ function getPossibleMoves(initialCoordinates) {
     }
     return possibleMoves;
 }
-// function to solve the maze (in recusive mode)
+// function to solve the maze (in recursive mode)
 function solveMaze(mazeData) {
     var isPathFound = false;
     var currentCoordinates = [1, 1]; // starting point
@@ -84,8 +84,8 @@ function solveMaze(mazeData) {
         if (possibleMoves.length !== 0) {
             for (var _i = 0, possibleMoves_1 = possibleMoves; _i < possibleMoves_1.length; _i++) {
                 var coordinate = possibleMoves_1[_i];
-                if (checkDestiantion(coordinate)) {
-                    console.log("Destination found at coordiantes: ".concat(coordinate.join(",")));
+                if (checkDestination(coordinate)) {
+                    console.log("Destination found at coordinates: ".concat(coordinate.join(",")));
                     isPathFound = true;
                     return isPathFound;
                 }
@@ -99,7 +99,7 @@ function solveMaze(mazeData) {
             return isPathFound;
         return isPathFound;
     }
-    function checkDestiantion(coordinate) {
+    function checkDestination(coordinate) {
         return mazeData[coordinate[0]][coordinate[1]] === "G" ? true : false;
     }
     return solveMazeByParts(currentCoordinates);

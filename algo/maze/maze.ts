@@ -11,23 +11,23 @@ const mazeData = makeMatrix(mazeString);
 
 // solve the maze
 console.log(
-  solveMaze(mazeData) ? "Maze Has Atleast 1 Solution!" : "Maze has NO Solution!"
+  solveMaze(mazeData) ? "Maze Has At least 1 Solution!" : "Maze has NO Solution!"
 );
 
 /// Operational Functions
 // function to create a matrix 2D plane
 function makeMatrix(arry: Array<string>): Array<Array<string>> {
   const supArry: Array<Array<string>> = [];
-  let subArary: Array<string> = [];
+  let subArray: Array<string> = [];
 
   function pushToSupArryAndClearSubArry(): void {
-    supArry.push(subArary);
-    subArary = [];
+    supArry.push(subArray);
+    subArray = [];
     return;
   }
 
   for (let x = 0; x < arry.length; x++) {
-    // get the curent characcter
+    // get the current character
     const char = arry[x];
 
     if (char === "\r") {
@@ -40,15 +40,15 @@ function makeMatrix(arry: Array<string>): Array<Array<string>> {
         pushToSupArryAndClearSubArry();
       }
     } else if (char === "\n") {
-      // linix
+      // linux
       pushToSupArryAndClearSubArry();
     } else {
-      subArary.push(arry[x]);
+      subArray.push(arry[x]);
     }
   }
 
   // check the last row and push it
-  if (subArary.length != 0) supArry.push(subArary);
+  if (subArray.length != 0) supArry.push(subArray);
 
   return supArry;
 }
@@ -80,7 +80,7 @@ function getPossibleMoves(
   return possibleMoves;
 }
 
-// function to solve the maze (in recusive mode)
+// function to solve the maze (in recursive mode)
 function solveMaze(mazeData: Array<Array<string>>): boolean {
   let isPathFound = false;
   let currentCoordinates: [number, number] = [1, 1]; // starting point
@@ -102,9 +102,9 @@ function solveMaze(mazeData: Array<Array<string>>): boolean {
 
     if (possibleMoves.length !== 0) {
       for (const coordinate of possibleMoves) {
-        if (checkDestiantion(coordinate)) {
+        if (checkDestination(coordinate)) {
           console.log(
-            `Destination found at coordiantes: ${coordinate.join(",")}`
+            `Destination found at coordinates: ${coordinate.join(",")}`
           );
           isPathFound = true;
           return isPathFound;
@@ -118,7 +118,7 @@ function solveMaze(mazeData: Array<Array<string>>): boolean {
     return isPathFound;
   }
 
-  function checkDestiantion(coordinate: Array<number>): boolean {
+  function checkDestination(coordinate: Array<number>): boolean {
     return mazeData[coordinate[0]][coordinate[1]] === "G" ? true : false;
   }
 
