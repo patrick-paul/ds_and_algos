@@ -75,6 +75,12 @@ var fixedArray = /** @class */ (function () {
     fixedArray.prototype.toArray = function () {
         return Object.values(this.store);
     };
+    fixedArray.prototype.printItems = function () {
+        for (var key in this.store) {
+            console.log(this.store[key]);
+        }
+        return;
+    };
     // Info Features
     fixedArray.prototype.isFull = function () {
         return this.getStoreLength() === this.size;
@@ -82,5 +88,24 @@ var fixedArray = /** @class */ (function () {
     fixedArray.prototype.isEmpty = function () {
         return this.getStoreLength() === 0;
     };
+    // iterables
+    fixedArray.prototype.forEvery = function (iterableFunction) {
+        for (var x = 0; x < this.getStoreLength(); x++) {
+            var modifiedElement = iterableFunction(this.store[x]);
+            this.store[x] = modifiedElement;
+        }
+        return;
+    };
     return fixedArray;
 }());
+var newFixedArray = new fixedArray(5);
+newFixedArray.add(1);
+newFixedArray.add(2);
+newFixedArray.add(3);
+newFixedArray.add(4);
+newFixedArray.add(5);
+newFixedArray.printItems();
+newFixedArray.forEvery(function (element) {
+    return element * 2;
+});
+newFixedArray.printItems();
